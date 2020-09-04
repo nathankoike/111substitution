@@ -67,6 +67,28 @@ void find_word(string & src){}
 // apply all changes to the source text
 void apply(slist * replacements, string & src){}
 
+// split a string at the token
+string split(string src, const char & tok){
+  // the string up to the token
+  string sp = "";
+
+  for (size_t i = 0; i < src.length(); i++){
+    // if we are looking at the token
+    if (src[i] == tok)
+      break;
+
+    // add the character to the string
+    sp += src[i];
+  }
+
+  return sp;
+}
+
+// separate the substitutions into structs and return the list of substitutions
+slist * get_subs(string substitutions){
+  return NULL;
+}
+
 // get an input that includes newlines
 void get_input(string & target){
   // the last and second to last characters
@@ -85,7 +107,9 @@ int main(){
   string substitutions = "";
   string src = "";
 
+  cin >> substitutions;
+
   get_input(src);
 
-  cout << src << endl;
+  cout << split(substitutions, ':') << endl;
 }

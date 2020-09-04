@@ -2,7 +2,6 @@
 #include <iostream>
 using namespace std;
 
-
 // a struct to hold the substitutions
 struct subs{
   string old = "";
@@ -55,9 +54,38 @@ void delete_list(slist * & list){
   for (; list; list->pop());
 }
 
+// =============================================================================
+// =============================== FUNCTIONS ===================================
+// =============================================================================
+
+// replace a word at index i with the substitution
+void replace(const subs *& sub, string & src, const size_t & i){}
+
+// find a word that needs to be replaced
+void find_word(string & src){}
+
 // apply all changes to the source text
 void apply(slist * replacements, string & src){}
 
+// get an input that includes newlines
+void get_input(string & target){
+  // the last and second to last characters
+  char last = cin.get();
+  char slast;
+
+  // end on 2 newlines
+  while (last != slast || slast != '\n'){
+    target += last;
+    slast = last;
+    last = cin.get();
+  }
+}
+
 int main(){
-  cout << "hello world" << endl;
+  string substitutions = "";
+  string src = "";
+
+  get_input(src);
+
+  cout << src << endl;
 }

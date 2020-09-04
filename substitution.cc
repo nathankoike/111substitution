@@ -16,6 +16,7 @@ struct node{
 };
 
 // implement a list
+// this should be a class but im lazy
 struct slist{
   node* head = NULL;
   node* tail = NULL;
@@ -50,11 +51,13 @@ struct slist{
 };
 
 // delete the singly linked list and all the substitution structs within it
-void delete_list(slist * list){
+void delete_list(slist * & list){
   for (; list; list->pop());
 }
 
 // apply all changes to the source text
-void apply(){}
+void apply(slist * replacements, string & src){}
 
-int main(){}
+int main(){
+  cout << "hello world" << endl;
+}

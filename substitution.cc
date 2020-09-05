@@ -159,27 +159,47 @@ void replace(string & sentence, string word, subs * & sub, bool & r){
     return;
   }
 
-  // get the fully lowercase value of the old word
-  string old = to_lower(sub->old);
-
   // we need to do some capitalization checking
-  if (to_lower(word) == old){
+  if (to_lower(word) == sub->old){
     // this will be or lowercase string
     string replacement = "";
 
     // get the distance between uppercase and lowercase letters
     int distance = 'a' - 'A';
 
-    // index the string
-    for (size_t i = 0; i < old.length(); i++){
-      // if s[i] is an uppercase letter
-      if (word[i] <= 'Z')
-        // add the distance and make it uppercase
-        replacement += (old[i] - distance);
-      else
-        replacement += old[i];
+    // we need to consider a difference in length
+    size_t i = 0;
+
+    // if the word is shorter than the replacement
+    if (word.size() < sub->replacement.size()){
+      // index the word
+      for (; i < word.length(); i++){
+        // if s[i] is an uppercase letter
+        if (word[i] <= 'Z')
+          // add the distance and make it uppercase
+          replacement += (sub->replacement[i] - distance);
+        else
+          replacement += sub->replacement[i];
+      }
+
+      // add the rest of the replacement
+      for (; i < sub->replacement.size(); i++)
+        replacement += sub->replacement[i];
     }
 
+    else{
+      // index the replacement
+      for (; i < sub->replacement.length(); i++){
+        // if s[i] is an uppercase letter
+        if (word[i] <= 'Z')
+          // add the distance and make it uppercase
+          replacement += (sub->replacement[i] - distance);
+        else
+          replacement += sub->replacement[i];
+      }
+    }
+
+    // add the replacement to the sentence
     sentence += replacement;
     r = true; // mark the word as replaced
   }

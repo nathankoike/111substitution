@@ -167,9 +167,11 @@ string apply_sentence(const slist * replacements, string src){
     if (!replaced)
       sentence += word;
 
-    // add a trailing space
-    if (word != src)
+    // add a trailing space and remove the leading space from the source
+    if (word != src){
       sentence += ' ';
+      src = src.substr(1);
+    }
   }
 
   return sentence;

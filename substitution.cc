@@ -151,21 +151,25 @@ string apply_sentence(const slist * replacements, string src){
     // get the first word in the source
     word = split(src, ' ');
 
+    // track replacement
+    bool replaced = false;
+
     // for every possible substitution
     for (node * p = replacements->head; p; p = p->next){
       // if we need to replace the word
-      if (word == p->sub->old)
+      if (word == p->sub->old){
         sentence += p->sub->replacement;
-      // we dont need to replace the word
-      else
-        sentence += word;
+        replaced = true;
+      }
     }
+
+    // if the word hasnt been replaced, simply add it
+    if (!replaced)
+      sentence += word;
 
     // add a trailing space
     if (word != src)
       sentence += ' ';
-
-    cout << src << "   " << word;
   }
 
   return sentence;

@@ -131,12 +131,57 @@ void get_input(string & target){
   }
 }
 
+// convert a string entirely to lowercase letters
+string to_lower(const string & s){
+  // this will be or lowercase string
+  string lower = "";
+
+  // get the distance between uppercase and lowercase letters
+  int distance = 'a' - 'A';
+
+  // index the string
+  for (size_t i = 0; i < s.length(); i++){
+    if (s[i] <= 'Z') // if s[i] is an uppercase letter
+      lower += (s[i] + distance); // add the distance and make it lowercase
+    else
+      lower += s[i];
+  }
+
+  return lower;
+}
+
 // replace a word while also respecting capitalization
 void replace(string & sentence, string word, subs * & sub, bool & r){
-  // if we need to replace the word
+  // if we need to replace the word exactly
   if (word == sub->old){
     sentence += sub->replacement;
-    r = true;
+    r = true; // mark the word as replaced
+    return;
+  }
+
+  // get the fully lowercase value of the old word
+  string old = to_lower(sub->old);
+
+  // we need to do some capitalization checking
+  if (to_lower(word) == old){
+    // this will be or lowercase string
+    string replacement = "";
+
+    // get the distance between uppercase and lowercase letters
+    int distance = 'a' - 'A';
+
+    // index the string
+    for (size_t i = 0; i < old.length(); i++){
+      // if s[i] is an uppercase letter
+      if (word[i] <= 'Z')
+        // add the distance and make it uppercase
+        replacement += (old[i] - distance);
+      else
+        replacement += old[i];
+    }
+
+    sentence += replacement;
+    r = true; // mark the word as replaced
   }
 }
 

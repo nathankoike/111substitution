@@ -131,8 +131,14 @@ void get_input(string & target){
   }
 }
 
-// replace a word at index i with the substitution
-void replace(const subs *& sub, string & src, size_t & i){}
+// replace a word while also respecting capitalization
+void replace(string & sentence, string word, subs * & sub, bool & r){
+  // if we need to replace the word
+  if (word == sub->old){
+    sentence += sub->replacement;
+    r = true;
+  }
+}
 
 // apply all changes to a sentence
 string apply_sentence(const slist * replacements, string src){
@@ -156,11 +162,8 @@ string apply_sentence(const slist * replacements, string src){
 
     // for every possible substitution
     for (node * p = replacements->head; p; p = p->next){
-      // if we need to replace the word
-      if (word == p->sub->old){
-        sentence += p->sub->replacement;
-        replaced = true;
-      }
+      // potentially replace a word
+      replace(sentence, word, p->sub, replaced);
     }
 
     // if the word hasnt been replaced, simply add it

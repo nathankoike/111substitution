@@ -59,13 +59,35 @@ void delete_list(slist * & list){
 // =============================================================================
 
 // replace a word at index i with the substitution
-void replace(const subs *& sub, string & src, const size_t & i){}
+void replace(const subs *& sub, string & src, size_t & i){}
 
-// find a word that needs to be replaced
-void find_word(string & src){}
+// apply all changes to a sentence
+string apply_sentence(slist * replacements, string src){
+  // this is where we will store the first word in the sentence
+  string word = "";
+
+  for (; src != ""; src = src.substr(word.length())){
+    // get the first word in the source
+    string word = split(src, ' ');
+
+    // for every possible substitution
+    for (node * p = replacements->head; p; p = p->next){
+      // if we need to replace the word
+      if (word == p->sub->old){
+        // if this is the first word in the sentence
+
+      }
+    }
+  }
+}
 
 // apply all changes to the source text
-void apply(slist * replacements, string & src){}
+string apply(slist * replacements, string src){
+  // this is the final result of the replacements
+  string final = "";
+
+
+}
 
 // split a string at the token
 string split(string src, const char & tok){
@@ -151,10 +173,13 @@ int main(){
   // get the replacements
   slist * replacements = get_subs(substitutions);
 
+  cout << src << endl;
+
+  // replace all the words
+  apply(replacements, src);
+
+  cout << src << endl;
+
   // delete the replacements
   delete_list(replacements);
-
-  // print the replacements
-  for (node * f = replacements->head; f; f = f->next)
-    cout << f->sub->old << " " << f->sub->replacement << endl;
 }
